@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>DARIMATI 공동구매 대시보드</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;--bg-soft:#f7f7f8;--bg-dark:#0a0a0a;
+  --text:#111;--text-inv:#fff;--muted:#6b6b6b;--muted-light:#999;
+  --accent:#6366f1;--accent-soft:#eef0ff;--accent-dark:#4f46e5;
+  --green:#16a34a;--green-soft:#dcfce7;--yellow:#ca8a04;--yellow-soft:#fef9c3;--red:#dc2626;--red-soft:#fee2e2;
+  --line:#e6e6e6;--line-soft:#f0f0f0;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.05);
+  --radius:9px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg-soft);color:var(--text);-webkit-font-smoothing:antialiased}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);height:54px;display:flex;align-items:center;padding:0 24px}
+.nav .logo{font-size:15px;font-weight:800;letter-spacing:-.02em}
+.nav .logo span{color:var(--accent)}
+.nav .right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.nav .partner-badge{background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;letter-spacing:.04em}
+.nav .avatar{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+
+/* Container */
+.container{max-width:1040px;margin:0 auto;padding:0 24px}
+
+/* Hero */
+.hero{background:var(--bg-dark);padding:48px 0 40px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-40%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(99,102,241,.12) 0%,transparent 70%);pointer-events:none}
+.hero .container{position:relative;z-index:1}
+.hero .greeting{font-size:clamp(13px,1.5vw,14px);color:var(--muted-light);margin-bottom:8px;letter-spacing:.04em}
+.hero h1{font-size:clamp(24px,3.5vw,36px);font-weight:800;color:var(--text-inv);letter-spacing:-.02em;line-height:1.2}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#818cf8,#6366f1);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .hero-stats{display:flex;gap:32px;margin-top:24px}
+.hero .hero-stat .num{font-size:28px;font-weight:800;color:var(--text-inv)}
+.hero .hero-stat .label{font-size:11px;color:var(--muted-light);text-transform:uppercase;letter-spacing:.12em;margin-top:2px}
+
+/* KPI Cards */
+.kpi-section{padding:32px 0 0}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi-card{background:var(--bg);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border:1px solid var(--line-soft)}
+.kpi-card.highlight{background:var(--bg-dark);color:var(--text-inv)}
+.kpi-card .kpi-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-bottom:8px}
+.kpi-card.highlight .kpi-label{color:var(--muted-light)}
+.kpi-card .kpi-value{font-size:22px;font-weight:800}
+.kpi-card .kpi-sub{font-size:12px;margin-top:4px}
+.kpi-card .kpi-sub.up{color:var(--green)}
+.kpi-card .kpi-sub.neutral{color:var(--muted)}
+
+/* Dashboard Window */
+.dash-section{padding:32px 0}
+.dash-window{background:var(--bg);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden}
+.dash-chrome{background:#f5f5f5;border-bottom:1px solid var(--line);padding:10px 14px;display:flex;align-items:center;gap:8px}
+.dash-dots{display:flex;gap:6px}
+.dash-dots i{width:10px;height:10px;border-radius:50%;display:block}
+.dash-dots .r{background:#ff5f57}.dash-dots .y{background:#febc2e}.dash-dots .g{background:#28c840}
+.dash-url{flex:1;margin-left:8px;background:#fff;border:1px solid var(--line);border-radius:5px;padding:4px 10px;font-size:11px;color:var(--muted)}
+.dash-body{padding:24px}
+
+/* Chart Area */
+.chart-box{background:var(--bg-soft);border-radius:var(--radius);padding:20px;border:1px solid var(--line-soft)}
+.chart-box .chart-label{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:12px}
+
+/* Bar Chart */
+.bars{display:flex;align-items:flex-end;gap:8px;height:130px;padding-top:8px;overflow-x:auto}
+.bar-col{flex:1;min-width:34px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar-col .bar{width:100%;border-radius:4px 4px 0 0;background:var(--line);min-height:4px;transition:height .6s ease}
+.bar-col .bar.active{background:var(--accent)}
+.bar-col .bar-label{font-size:10px;color:var(--muted);white-space:nowrap}
+.bar-col .bar-val{font-size:10px;font-weight:600;color:var(--text);white-space:nowrap}
+
+/* Info Grid */
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.info-card{background:var(--bg-soft);border-radius:var(--radius);padding:16px;border:1px solid var(--line-soft)}
+.info-card .ic-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:6px}
+.info-card .ic-value{font-size:14px;font-weight:600}
+
+/* Link Card */
+.link-card{background:var(--bg);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border:1px solid var(--line-soft);margin-top:20px}
+.link-card h3{font-size:13px;font-weight:700;margin-bottom:14px}
+.link-item{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.link-item .li-left{display:flex;align-items:center;gap:10px;min-width:0}
+.link-item .li-icon{width:32px;height:32px;border-radius:8px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:14px;flex:none}
+.link-item .li-name{font-size:13px;font-weight:600}
+.link-item .li-url{font-size:11px;color:var(--muted);word-break:break-all}
+.link-item .li-copy{padding:6px 12px;border-radius:6px;background:var(--bg-soft);border:1px solid var(--line);font-size:11px;font-weight:600;cursor:pointer;color:var(--text);transition:all .2s;flex:none}
+.link-item .li-copy:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Tables */
+.section-label{font-size:13px;font-weight:700;margin:24px 0 12px;padding-top:20px;border-top:1px solid var(--line-soft)}
+.table-scroll{overflow-x:auto}
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{text-align:left;padding:10px 12px;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--line);white-space:nowrap;font-weight:600}
+.data-table td{padding:10px 12px;border-bottom:1px solid var(--line-soft);white-space:nowrap}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(99,102,241,.03)}
+.data-table tr.void td{color:var(--muted-light);text-decoration:line-through}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
+.pill.ok{background:var(--green-soft);color:var(--green)}
+.pill.wait{background:var(--yellow-soft);color:var(--yellow)}
+.pill.void{background:var(--red-soft);color:var(--red);text-decoration:none}
+
+/* Freshness */
+.stamp{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.stamp i{width:6px;height:6px;border-radius:50%;background:var(--green);display:block}
+.stamp.stale i{background:var(--yellow)}
+.stamp.stale{color:var(--yellow)}
+
+/* Footer */
+.footer{text-align:center;padding:24px 0 40px;font-size:12px;color:var(--muted);line-height:1.7}
+
+/* Mobile */
+@media(max-width:860px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .hero .hero-stats{flex-wrap:wrap;gap:20px}
+  .info-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .kpi-grid{grid-template-columns:1fr}
+  .container{padding:0 14px}
+  .nav{padding:0 14px}
+  .hero{padding:32px 0 28px}
+  .hero h1{font-size:22px}
+  .bars{height:100px}
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;color:#6b6b6b">
+    <div style="text-align:center"><div style="font-size:24px;margin-bottom:8px">Loading…</div><div style="font-size:13px">주문 데이터를 불러오는 중</div></div>
+  </div>
+</div>
+
+<script>
+/* 공동구매 파트너 전용 대시보드
+ * 데이터: data/<token>.json — NCP 서버가 네이버 커머스 API 에서 만들어 밀어넣는다.
+ * 기존 파트너 시스템(affiliate-dashboard / 구글시트)과 완전히 분리돼 있다. */
+
+function q(k){return new URLSearchParams(location.search).get(k)}
+function fm(n){return (n||0).toLocaleString('ko-KR')+'원'}
+function fms(n){if(!n)return'0';if(n>=10000)return(n/10000).toFixed(n>=100000?0:1)+'만';return n.toLocaleString('ko-KR')}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function mmdd(d){var p=String(d||'').split('-');return p.length>=3?(+p[1])+'/'+(+p[2]):(d||'-')}
+
+var STATUS_PILL={'결제완료':'wait','배송중':'ok','배송완료':'ok','구매확정':'ok','교환':'ok','취소':'void','반품':'void','입금대기':'wait','미입금취소':'void'};
+
+function render(d){
+  var name=d.partner||'파트너';
+  var s=d.summary||{};
+  var orders=d.orders||[];
+  var daily=d.daily||[];
+  var rate=d.commissionRate||15;
+  var commission=Math.round((s.revenue||0)*rate/100);
+
+  var h='';
+
+  h+='<nav class="nav"><div style="display:flex;align-items:center;width:100%;max-width:1040px;margin:0 auto">';
+  h+='<div class="logo"><span>DARIMATI</span> 공동구매</div>';
+  h+='<div class="right"><span class="partner-badge">PARTNER</span><div class="avatar">'+esc(name.charAt(0))+'</div></div>';
+  h+='</div></nav>';
+
+  // Hero
+  h+='<section class="hero"><div class="container">';
+  h+='<div class="greeting">'+esc(d.openDate||'')+(d.endDate?' ~ '+esc(d.endDate):'')+' 공동구매</div>';
+  h+='<h1>'+esc(name)+' <em>Dashboard</em></h1>';
+  h+='<div class="hero-stats">';
+  h+='<div class="hero-stat"><div class="num">'+(s.qty||0)+'</div><div class="label">결제 수량</div></div>';
+  h+='<div class="hero-stat"><div class="num">'+fms(s.revenue||0)+'</div><div class="label">누적 매출</div></div>';
+  h+='<div class="hero-stat"><div class="num">'+fms(commission)+'</div><div class="label">예상 수익</div></div>';
+  h+='</div></div></section>';
+
+  // KPI
+  h+='<section class="kpi-section"><div class="container"><div class="kpi-grid">';
+  h+='<div class="kpi-card"><div class="kpi-label">결제 건수</div><div class="kpi-value">'+(s.count||0)+'건</div><div class="kpi-sub neutral">취소·반품 제외</div></div>';
+  h+='<div class="kpi-card"><div class="kpi-label">결제 수량</div><div class="kpi-value">'+(s.qty||0)+'개</div><div class="kpi-sub neutral">신발 기준</div></div>';
+  h+='<div class="kpi-card"><div class="kpi-label">누적 매출</div><div class="kpi-value">'+fm(s.revenue||0)+'</div><div class="kpi-sub neutral">최종 결제금액 합계</div></div>';
+  h+='<div class="kpi-card highlight"><div class="kpi-label">예상 수익 ('+rate+'%)</div><div class="kpi-value" style="color:var(--accent)">'+fm(commission)+'</div><div class="kpi-sub" style="color:var(--muted-light)">공동구매 종료 후 정산</div></div>';
+  h+='</div></div></section>';
+
+  // Window
+  h+='<section class="dash-section"><div class="container"><div class="dash-window">';
+  h+='<div class="dash-chrome"><div class="dash-dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><div class="dash-url">darimati · '+esc(name)+' 공동구매 실시간</div></div>';
+  h+='<div class="dash-body">';
+
+  // 일자별 막대
+  h+='<div class="chart-box"><div class="chart-label">일자별 매출</div>';
+  if(daily.length){
+    var maxV=Math.max.apply(null,daily.map(function(x){return x.revenue||0}))||1;
+    h+='<div class="bars">';
+    daily.forEach(function(x,i){
+      var pct=x.revenue>0?Math.max(6,Math.round(x.revenue/maxV*100)):3;
+      h+='<div class="bar-col"><div class="bar-val">'+(x.revenue>0?fms(x.revenue):'-')+'</div>'
+        +'<div class="bar'+(i===daily.length-1?' active':'')+'" style="height:'+pct+'%"></div>'
+        +'<div class="bar-label">'+mmdd(x.date)+'</div></div>';
+    });
+    h+='</div>';
+  }else{
+    h+='<div style="text-align:center;padding:28px;color:var(--muted);font-size:13px">아직 매출이 없습니다</div>';
+  }
+  h+='</div>';
+
+  // 주문 표
+  h+='<div class="section-label">결제 내역 ('+orders.length+'건)</div>';
+  if(orders.length){
+    h+='<div class="table-scroll"><table class="data-table"><thead><tr>'
+      +'<th>일자</th><th>옵션</th><th style="text-align:right">수량</th>'
+      +'<th style="text-align:right">최종 결제금액</th><th>상태</th></tr></thead><tbody>';
+    orders.forEach(function(o){
+      var cls=STATUS_PILL[o.status]||'ok';
+      var voided=cls==='void';
+      h+='<tr'+(voided?' class="void"':'')+'>'
+        +'<td>'+esc(o.date||'-')+'</td>'
+        +'<td>'+esc(o.option||o.product||'-')+'</td>'
+        +'<td style="text-align:right">'+(o.qty||0)+'</td>'
+        +'<td style="text-align:right;font-weight:600">'+fm(o.amount||0)+'</td>'
+        +'<td><span class="pill '+cls+'">'+esc(o.status||'-')+'</span></td>'
+        +'</tr>';
+    });
+    h+='</tbody></table></div>';
+  }else{
+    h+='<div style="text-align:center;padding:32px;color:var(--muted);font-size:13px">아직 결제 건이 없습니다</div>';
+  }
+
+  // Info
+  h+='<div class="info-grid">';
+  h+='<div class="info-card"><div class="ic-label">오픈일</div><div class="ic-value">'+esc(d.openDate||'-')+'</div></div>';
+  h+='<div class="info-card"><div class="ic-label">수수료율</div><div class="ic-value">'+rate+'%</div></div>';
+  h+='<div class="info-card"><div class="ic-label">상태</div><div class="ic-value"><span class="pill ok">진행중</span></div></div>';
+  h+='</div>';
+
+  h+='</div></div>'; // dash-body / dash-window
+
+  // 구매링크
+  if(d.buyUrl){
+    h+='<div class="link-card"><h3>공동구매 구매링크</h3><div class="link-item">'
+      +'<div class="li-left"><div class="li-icon">🔗</div><div><div class="li-name">스마트스토어 전용 링크</div>'
+      +'<div class="li-url">'+esc(d.buyUrl)+'</div></div></div>'
+      +'<button class="li-copy" id="copyBtn">복사</button></div></div>';
+  }
+
+  h+='</div></section>';
+
+  // 데이터 기준 시각 — 화면이 멀쩡한데 숫자가 옛날 것인 사고를 막는다
+  var stale=isStale(d.updatedAt);
+  h+='<div class="footer"><div class="container">'
+    +'<div class="stamp'+(stale?' stale':'')+'"><i></i>데이터 기준: '+esc(d.updatedAt||'알 수 없음')+(stale?' (갱신 지연)':'')+'</div>'
+    +'<div style="margin-top:6px">네이버 스마트스토어 주문에서 1시간마다 자동 집계 · 취소/반품 건은 합계에서 제외됩니다</div>'
+    +'</div></div>';
+
+  return h;
+}
+
+/** 기준 시각이 3시간 넘게 낡았으면 경고색 */
+function isStale(ts){
+  if(!ts)return true;
+  var m=String(ts).match(/(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
+  if(!m)return false;
+  var t=Date.UTC(+m[1],+m[2]-1,+m[3],+m[4]-9,+m[5]); // 기록은 KST
+  return (Date.now()-t)>3*3600e3;
+}
+
+function noAccess(msg){
+  return '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px">'
+    +'<div style="text-align:center;max-width:340px">'
+    +'<div style="font-size:40px;margin-bottom:12px">🔒</div>'
+    +'<h2 style="font-size:18px;margin-bottom:8px">접근할 수 없습니다</h2>'
+    +'<p style="font-size:13px;color:#6b6b6b;line-height:1.6">'+esc(msg)+'</p></div></div>';
+}
+
+async function load(){
+  var app=document.getElementById('app');
+  var t=q('t')||q('token');
+  if(!t||!/^[A-Za-z0-9_-]{8,64}$/.test(t)){
+    app.innerHTML=noAccess('전용 링크로 접속해 주세요. 링크를 잃어버리셨다면 담당자에게 문의해 주세요.');
+    return;
+  }
+  try{
+    var r=await fetch('data/'+encodeURIComponent(t)+'.json?v='+Date.now(),{cache:'no-store'});
+    if(!r.ok)throw new Error('not found');
+    var d=await r.json();
+    app.innerHTML=render(d);
+    document.title='DARIMATI · '+(d.partner||'')+' 공동구매';
+    var btn=document.getElementById('copyBtn');
+    if(btn)btn.onclick=function(){
+      navigator.clipboard.writeText(d.buyUrl);
+      btn.textContent='✓ 복사됨';
+      setTimeout(function(){btn.textContent='복사'},1500);
+    };
+  }catch(e){
+    app.innerHTML=noAccess('링크가 올바르지 않거나 아직 준비 중입니다.');
+  }
+}
+
+load();
+setInterval(load,10*60*1000); // 10분마다 자동 갱신
+</script>
+</body>
+</html>
