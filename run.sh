@@ -18,10 +18,16 @@ if [ -n "$(git status --porcelain data)" ]; then
   git add data
   git -c user.name="groupbuy bot" -c user.email="bot@users.noreply.github.com" \
       commit -qm "data: $(date '+%F %H:%M') 자동 갱신"
+
+  # 맥에서 코드를 고쳐 올리면 원격이 앞서 있어 푸시가 막힌다.
+  # 그대로 두면 화면 숫자가 조용히 얼어붙으므로, 한 번 합쳐보고 다시 민다.
   if git push -q origin main >> "$LOG" 2>&1; then
     echo "✅ 배포 푸시 완료" >> "$LOG"
+  elif git pull --rebase -q >> "$LOG" 2>&1 && git push -q origin main >> "$LOG" 2>&1; then
+    echo "✅ 배포 푸시 완료 (원격 변경분 합친 뒤)" >> "$LOG"
   else
-    echo "❌ 푸시 실패 — 화면이 옛날 숫자로 남아 있음" >> "$LOG"
+    git rebase --abort 2>/dev/null
+    echo "❌ 푸시 실패 — 화면이 옛날 숫자로 남는다. 사람이 봐야 함" >> "$LOG"
   fi
 else
   echo "변경 없음" >> "$LOG"
