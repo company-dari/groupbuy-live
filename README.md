@@ -25,7 +25,10 @@
 
 ## 파트너 추가하는 법
 
-`partners.json` 에 한 줄 추가하고 푸시하면 끝. 코드는 안 건드린다.
+파트너 설정은 **저장소가 아니라 서버**에 있다 → `/root/groupbuy-live-config/partners.json`
+(이 저장소는 Pages 때문에 공개라, 안에 두면 페이지 주소만 알아도 토큰이 통째로 열린다.)
+
+거기에 한 줄 추가하면 끝. 코드는 안 건드린다.
 
 ```json
 {
@@ -39,7 +42,7 @@
 ```
 
 그다음 서버에서 한 번 전체 수집:
-`cd /root/groupbuy-live && git pull && FULL=1 node --env-file=/root/sales-order-sync/.env scripts/sync.mjs && ./run.sh`
+`cd /root/groupbuy-live && FULL=1 node --env-file=/root/sales-order-sync/.env scripts/sync.mjs && ./run.sh`
 
 ## 주의
 

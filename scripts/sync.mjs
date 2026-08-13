@@ -25,6 +25,10 @@ const DRY = !!process.env.DRY;
 const FULL = !!process.env.FULL;
 const CACHE_DIR = process.env.CACHE_DIR || "/root/.groupbuy-cache";
 
+// 파트너 설정(=토큰 목록)은 저장소 밖에 둔다.
+// 이 저장소는 Pages 때문에 공개라, 안에 두면 주소만 알아도 토큰이 통째로 열린다.
+const CONFIG = process.env.PARTNERS_FILE || "/root/groupbuy-live-config/partners.json";
+
 // 매출·건수에 포함할 상태 (취소/반품/미결제 제외)
 const COUNTED = new Set(["PAYED", "DELIVERING", "DELIVERED", "PURCHASE_DECIDED", "EXCHANGED"]);
 const LABEL = {
@@ -168,7 +172,12 @@ function buildPayload(p, orders, now) {
 // ─────────────────────────────────────────────── 메인
 
 async function main() {
-  const partners = JSON.parse(readFileSync("partners.json", "utf-8"));
+  if (!existsSync(CONFIG)) {
+    console.error(`❌ 파트너 설정 파일이 없다: ${CONFIG}`);
+    console.error("   README 의 '파트너 추가하는 법' 참고 — 저장소가 아니라 서버에 둔다");
+    process.exit(1);
+  }
+  const partners = JSON.parse(readFileSync(CONFIG, "utf-8"));
   const wanted = new Map(); // 상품번호 -> 파트너
   for (const p of partners) for (const id of p.productIds) wanted.set(String(id), p);
 
