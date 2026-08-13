@@ -175,9 +175,12 @@ async function main() {
   const now = new Date();
   const earliest = partners
     .map((p) => p.openDate).filter(Boolean).sort()[0] || "2026-01-01";
-  const from = FULL
-    ? new Date(`${earliest}T00:00:00+09:00`)
-    : new Date(now.getTime() - 48 * 3600e3);
+  // FROM=2026-08-01 으로 시작일을 직접 지정할 수 있다(오픈일 이전 주문까지 훑고 싶을 때)
+  const from = process.env.FROM
+    ? new Date(`${process.env.FROM}T00:00:00+09:00`)
+    : FULL
+      ? new Date(`${earliest}T00:00:00+09:00`)
+      : new Date(now.getTime() - 48 * 3600e3);
 
   console.log(`파트너 ${partners.length}명 / 상품번호 ${wanted.size}개`);
   console.log(`조회 구간: ${iso(from).slice(0, 10)} ~ ${iso(now).slice(0, 10)}${FULL ? " (전체 재수집)" : ""}`);
