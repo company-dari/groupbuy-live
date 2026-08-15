@@ -4,11 +4,11 @@
  "endDate": "",
  "commissionRate": 15,
  "buyUrl": "https://brand.naver.com/darimati/products/13714910926",
- "updatedAt": "2026-08-15 12:10",
+ "updatedAt": "2026-08-15 13:10",
  "summary": {
-  "count": 31,
-  "qty": 31,
-  "revenue": 3360900
+  "count": 33,
+  "qty": 33,
+  "revenue": 3605100
  },
  "daily": [
   {
@@ -31,12 +31,28 @@
   },
   {
    "date": "2026-08-15",
-   "count": 2,
-   "qty": 2,
-   "revenue": 208200
+   "count": 4,
+   "qty": 4,
+   "revenue": 452400
   }
  ],
  "orders": [
+  {
+   "date": "2026-08-15",
+   "product": "[꾸노핑 공동구매] 다리마티 하이브리드 러닝화 BR-001 그레이, 베이지 2 color",
+   "option": "구성: 러닝화 풀패키지 (러닝캡+러닝벨트+스티커) / 컬러: 그레이 / 사이즈: 260mm",
+   "qty": 1,
+   "amount": 140100,
+   "status": "결제완료"
+  },
+  {
+   "date": "2026-08-15",
+   "product": "[꾸노핑 공동구매] 다리마티 하이브리드 러닝화 BR-001 그레이, 베이지 2 color",
+   "option": "구성: 러닝화 단품 / 컬러: 그레이 / 사이즈: 250mm",
+   "qty": 1,
+   "amount": 104100,
+   "status": "결제완료"
+  },
   {
    "date": "2026-08-15",
    "product": "[꾸노핑 공동구매] 다리마티 하이브리드 러닝화 BR-001 그레이, 베이지 2 color",
