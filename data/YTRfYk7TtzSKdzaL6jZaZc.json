@@ -4,7 +4,7 @@
  "endDate": "",
  "commissionRate": 15,
  "buyUrl": "https://brand.naver.com/darimati/products/13714910926",
- "updatedAt": "2026-08-19 18:10",
+ "updatedAt": "2026-08-19 19:10",
  "summary": {
   "count": 38,
   "qty": 38,
@@ -81,7 +81,7 @@
    "option": "구성: 러닝화 단품 / 컬러: 베이지 / 사이즈: 240mm",
    "qty": 1,
    "amount": 107100,
-   "status": "배송중"
+   "status": "배송완료"
   },
   {
    "date": "2026-08-16",
@@ -121,7 +121,7 @@
    "option": "구성: 러닝화 단품 / 컬러: 베이지 / 사이즈: 230mm",
    "qty": 1,
    "amount": 104100,
-   "status": "배송중"
+   "status": "배송완료"
   },
   {
    "date": "2026-08-15",
@@ -209,7 +209,7 @@
    "option": "구성: 러닝화 단품 / 컬러: 그레이 / 사이즈: 250mm",
    "qty": 1,
    "amount": 104100,
-   "status": "배송중"
+   "status": "배송완료"
   },
   {
    "date": "2026-08-13",
