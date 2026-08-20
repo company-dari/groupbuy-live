@@ -4,7 +4,7 @@
  "endDate": "",
  "commissionRate": 15,
  "buyUrl": "https://brand.naver.com/darimati/products/13714910926",
- "updatedAt": "2026-08-20 13:10",
+ "updatedAt": "2026-08-20 14:10",
  "summary": {
   "count": 38,
   "qty": 38,
@@ -105,7 +105,7 @@
    "option": "구성: 러닝화 풀패키지 (러닝캡+러닝벨트+스티커) / 컬러: 그레이 / 사이즈: 260mm",
    "qty": 1,
    "amount": 140100,
-   "status": "배송중"
+   "status": "배송완료"
   },
   {
    "date": "2026-08-15",
@@ -145,7 +145,7 @@
    "option": "구성: 러닝화 단품 / 컬러: 그레이 / 사이즈: 250mm",
    "qty": 1,
    "amount": 104100,
-   "status": "배송중"
+   "status": "배송완료"
   },
   {
    "date": "2026-08-14",
