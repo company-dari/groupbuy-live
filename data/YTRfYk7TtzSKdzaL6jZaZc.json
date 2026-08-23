@@ -4,7 +4,7 @@
  "endDate": "",
  "commissionRate": 15,
  "buyUrl": "https://brand.naver.com/darimati/products/13714910926",
- "updatedAt": "2026-08-23 12:10",
+ "updatedAt": "2026-08-23 13:10",
  "summary": {
   "count": 37,
   "qty": 37,
@@ -345,7 +345,7 @@
    "option": "구성: 러닝화 단품 / 컬러: 그레이 / 사이즈: 230mm",
    "qty": 1,
    "amount": 104100,
-   "status": "배송중"
+   "status": "구매확정"
   },
   {
    "date": "2026-08-12",
