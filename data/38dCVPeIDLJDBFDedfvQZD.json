@@ -4,21 +4,29 @@
  "endDate": "",
  "commissionRate": 5,
  "buyUrl": "https://brand.naver.com/darimati/products/13733801452",
- "updatedAt": "2026-08-31 23:10",
+ "updatedAt": "2026-09-01 00:10",
  "summary": {
-  "count": 1,
-  "qty": 1,
-  "revenue": 111000
+  "count": 2,
+  "qty": 2,
+  "revenue": 237000
  },
  "daily": [
   {
    "date": "2026-08-31",
-   "count": 1,
-   "qty": 1,
-   "revenue": 111000
+   "count": 2,
+   "qty": 2,
+   "revenue": 237000
   }
  ],
  "orders": [
+  {
+   "date": "2026-08-31",
+   "product": "[덕코치 비밀 할인 링크] 다리마티 러닝화 BR-001 단품/풀패키지 2color",
+   "option": "구성: 러닝화 단품 / 컬러: 그레이 / 사이즈: 230mm",
+   "qty": 1,
+   "amount": 126000,
+   "status": "결제완료"
+  },
   {
    "date": "2026-08-31",
    "product": "[비밀 할인 링크] 다리마티 러닝화 BR-001 단품/풀패키지 2color",
