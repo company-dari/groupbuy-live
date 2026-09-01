@@ -4,7 +4,7 @@
  "endDate": "",
  "commissionRate": 15,
  "buyUrl": "https://brand.naver.com/darimati/products/13729349345",
- "updatedAt": "2026-09-01 22:10",
+ "updatedAt": "2026-09-01 23:10",
  "summary": {
   "count": 1,
   "qty": 1,
@@ -25,7 +25,7 @@
    "option": "구성: 하이브리드 러닝화 단품 / 컬러: 그레이 / 사이즈: 260mm",
    "qty": 1,
    "amount": 111000,
-   "status": "배송완료"
+   "status": "구매확정"
   }
  ]
 }
