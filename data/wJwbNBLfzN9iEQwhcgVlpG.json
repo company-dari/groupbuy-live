@@ -1,0 +1,31 @@
+{
+ "partner": "비비안나",
+ "openDate": "2026-08-27",
+ "endDate": "",
+ "commissionRate": 15,
+ "buyUrl": "https://brand.naver.com/darimati/products/13729349345",
+ "updatedAt": "2026-09-01 10:49",
+ "summary": {
+  "count": 1,
+  "qty": 1,
+  "revenue": 111000
+ },
+ "daily": [
+  {
+   "date": "2026-08-27",
+   "count": 1,
+   "qty": 1,
+   "revenue": 111000
+  }
+ ],
+ "orders": [
+  {
+   "date": "2026-08-27",
+   "product": "[비비안나 비밀링크] 다리마티 하이브리드 러닝화 BR-001 2color 그레이, 베이지",
+   "option": "구성: 하이브리드 러닝화 단품 / 컬러: 그레이 / 사이즈: 260mm",
+   "qty": 1,
+   "amount": 111000,
+   "status": "배송완료"
+  }
+ ]
+}
